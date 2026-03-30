@@ -30,3 +30,9 @@ Pour jouer manuellement au 2048 :
 ```bash
 python interface_graphique.py
 ```
+
+
+SCORE : 
+- 2048 avec MCTS : 34 192
+- 2048 avec UCT_MCTS : 22 580
+- 2048 avec NMCTS : 71 336
