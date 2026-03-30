@@ -51,7 +51,7 @@ def flat_monte_carlo(board, simulations_per_move=40):
     return best_move
 
 
-def flat_monte_carlo_compte_tuile(board, simulations_per_move=40):
+def flat_monte_carlo_compte_tuile(board, simulations_per_move=40, profondeur_max=40):
     """
     Évalue chaque coup possible en simulant des parties aléatoires jusqu'à la fin.
     Retourne la direction (0, 1, 2, 3) qui donne le meilleur score moyen.
@@ -76,7 +76,6 @@ def flat_monte_carlo_compte_tuile(board, simulations_per_move=40):
             
             
             # 2. Phase de "Rollout" : Profondeur limitée + Pénalité de mort
-            profondeur_max = 40
             coups_joues = 0
             game_over_premature = False
             
@@ -98,7 +97,7 @@ def flat_monte_carlo_compte_tuile(board, simulations_per_move=40):
             if not game_over_premature:
                 cases_vides = sim_board.count(0)
                 total_score += (cases_vides * 10)
-
+  
         # 3. Calcul de la moyenne pour ce coup
         avg_score = total_score / simulations_per_move
         
@@ -117,5 +116,7 @@ if __name__ == "__main__":
     
     # On passe notre algorithme à l'interface graphique.
     # Un délai de 10ms permet de voir les coups s'enchaîner rapidement.
-    app = GUI2048(ai_function=lambda board: flat_monte_carlo_compte_tuile(board, simulations_per_move=5), delay_ms=10)
+    #app = GUI2048(ai_function=lambda board: flat_monte_carlo_compte_tuile(board, simulations_per_move=5, profondeur_max=200), delay_ms=10)
+    app = GUI2048(ai_function=lambda board: flat_monte_carlo(board), delay_ms=10)
+    
     app.mainloop()
