@@ -1,19 +1,20 @@
 ==================================================
-BENCHMARK 2048 - 31/03/2026 00:16:11
+BENCHMARK 2048 - 31/03/2026 13:54:16
 ==================================================
 
 --- CONFIGURATION ---
 Méthode utilisée : normal
 Type de Rollout  : heuristique_prof20
 Nombre de parties: 10
-Puissance (Iter) : 30
-Limite de coups  : 1000
+Puissance (Iter) : 100
+Limite de coups  : 10000
 
 --- RÉSULTATS ---
-Score Moyen      : 14852.80
-Écart-type       : 3892.50
-Meilleur Score   : 20872
+Score Moyen      : 19991.20
+Écart-type       : 7133.90
+Meilleur Score   : 32248
 Tuile Max        : 2048
-Temps Moyen/Partie: 45.55s
-Score/Temps      : 326.28
+Temps Moyen/Partie: 188.49s
+Score/Temps      : 106.06
+
 ==================================================

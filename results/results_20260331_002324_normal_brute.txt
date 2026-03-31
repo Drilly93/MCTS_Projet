@@ -15,5 +15,5 @@ Score Moyen      : 14746.40
 Meilleur Score   : 20752
 Tuile Max        : 2048
 Temps Moyen/Partie: 92.56s
-
+Score/Temps      : 159.35
 ==================================================

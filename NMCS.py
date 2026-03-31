@@ -4,14 +4,14 @@ from interface_graphique import GUI2048
 from utils import rollout_brute, rollout_heuristique
 
 # Dictionnaire global pour stocker les résultats déjà calculés
-nmcs_cache = {}
+nmcs_cache = {} # Clé : (board_tuple, level) -> Valeur : (best_move, best_avg_score)
 
 def nmcs(board, level, simulations_per_move=10, rollout_method=rollout_brute):
     # Transformation du board en tuple pour qu'il soit "hashable" (utilisable comme clé de cache)
     board_tuple = tuple(board)
     state_key = (board_tuple, level)
     
-    # 1. OPTIMISATION : CACHE (Mémoïisation)
+    # 1. OPTIMISATION : CACHE (Mémorisation)
     if state_key in nmcs_cache:
         return nmcs_cache[state_key]
 
@@ -55,9 +55,9 @@ def nmcs(board, level, simulations_per_move=10, rollout_method=rollout_brute):
     # Sauvegarde dans le cache avant de renvoyer
     nmcs_cache[state_key] = (best_move, best_avg_score)
     
-    # Limite la taille du cache pour éviter de saturer la RAM (optionnel)
-    if len(nmcs_cache) > 10000:
-        nmcs_cache.clear()
+    # # Limite la taille du cache pour éviter de saturer la RAM (optionnel)
+    # if len(nmcs_cache) > 10000:
+    #     nmcs_cache.clear()
 
     return best_move, best_avg_score
 

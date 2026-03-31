@@ -118,7 +118,7 @@ if __name__ == "__main__":
     parser.add_argument("--power", type=int, default=100, help="Itérations ou simulations")
     parser.add_argument("--max_moves", type=int, default=1000, help="Limite de coups")
     parser.add_argument("--prof", type=int, default=20, help="Profondeur de la simulation")
-    
+    parser.add_argument("--level", type=int, default=2, help="Niveau pour NMCS (si applicable)")
     args = parser.parse_args()
     
     
@@ -149,8 +149,8 @@ if __name__ == "__main__":
         from NMCS import nmcs
         # Pour NMCS, le rollout est souvent intrinsèque au niveau, 
         # mais on peut passer l'argument si votre fonction le supporte
-        ai_func = lambda board: nmcs(board, level=args.power, rollout_method=rollout_func,simulations_per_move=4)[0]
-        method_name = f"NMCS (Niveau {args.power})"
-
+        ai_func = lambda board: nmcs(board, level=args.level, rollout_method=rollout_func,simulations_per_move=args.power)[0]
+        method_name = f"NMCS (Niveau {args.level}, {args.power} sim, rollout: {args.rollout})"
+        args.method += f"_{args.level}"
     results_stats = run_benchmark(ai_func, num_games=args.games, name=method_name, max_moves=args.max_moves)
     save_results(args, results_stats)
