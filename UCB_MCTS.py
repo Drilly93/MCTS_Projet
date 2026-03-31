@@ -11,13 +11,13 @@ class MCTSNode:
     def __init__(self, board, parent=None, move=None):
         self.board = board
         self.parent = parent
-        self.move = move  # Le mouvement qui a mené à ce plateau
-        self.children = {} # Dictionnaire {direction: MCTSNode}
+        self.move = move  
+        self.children = {}
         self.visits = 0
         self.score_sum = 0
         self.untried_moves = Fast2048.get_valid_moves(board)
 
-    def ucb_value(self, exploration_constant=1000):
+    def ucb_value(self, exploration_constant=200):
         """Calcule la valeur UCB1 du nœud."""
         if self.visits == 0:
             return float('inf')  # Priorité aux nœuds non visités
@@ -48,7 +48,6 @@ def mcts_ucb_search(root_board, iterations=100, rollout_method=rollout_brute):
             move = random.choice(node.untried_moves)
             node.untried_moves.remove(move)
             
-            # On récupère le score ici (_), mais on ne s'en sert pas pour sim_score
             next_state, _ = Fast2048.get_next_state(node.board, move)
             if next_state:
                 next_state = Fast2048.add_random_tile(next_state)
@@ -57,8 +56,6 @@ def mcts_ucb_search(root_board, iterations=100, rollout_method=rollout_brute):
                 node = child_node
 
         # 3. SIMULATION
-        # On utilise la méthode passée par le benchmark (brute ou heuristique)
-        # La fonction rollout_method ne prend qu'un seul argument : le board
         sim_score = rollout_method(node.board)
 
         # 4. RÉTROPROPAGATION
@@ -67,7 +64,7 @@ def mcts_ucb_search(root_board, iterations=100, rollout_method=rollout_brute):
             node.score_sum += sim_score
             node = node.parent
 
-    # Choix final : le mouvement le plus visité
+    # Choix final : la direction la plus visitée
     if not root_node.children:
         valid = Fast2048.get_valid_moves(root_board)
         return random.choice(valid) if valid else None

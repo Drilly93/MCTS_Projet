@@ -36,11 +36,7 @@ def flat_monte_carlo(board, simulations_per_move=40, rollout_method=rollout_brut
 
 if __name__ == "__main__":
     print("Démarrage de l'IA Monte Carlo...")
-    
-    # On passe notre algorithme à l'interface graphique.
-    # Un délai de 10ms permet de voir les coups s'enchaîner rapidement.
-    #app = GUI2048(ai_function=lambda board: flat_monte_carlo_compte_tuile(board, simulations_per_move=5, profondeur_max=200), delay_ms=10)
     r_func = lambda b: rollout_heuristique(b, profondeur_max=20)
-    app = GUI2048(ai_function=lambda board: flat_monte_carlo(board, rollout_method=r_func,simulations_per_move=100), delay_ms=0)
+    app = GUI2048(ai_function=lambda board: flat_monte_carlo(board, rollout_method=r_func,simulations_per_move=30), delay_ms=0)
     
     app.mainloop()

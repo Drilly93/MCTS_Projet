@@ -1,0 +1,19 @@
+==================================================
+BENCHMARK 2048 - 31/03/2026 00:57:19
+==================================================
+
+--- CONFIGURATION ---
+Méthode utilisée : MCTS
+Type de Rollout  : heuristique_prof20
+Nombre de parties: 10
+Puissance (Iter) : 300
+Limite de coups  : 1000
+
+--- RÉSULTATS ---
+Score Moyen      : 16036.40
+Écart-type       : 1987.60
+Meilleur Score   : 20944
+Tuile Max        : 2048
+Temps Moyen/Partie: 161.60s
+Score/Temps      : 99.38
+==================================================

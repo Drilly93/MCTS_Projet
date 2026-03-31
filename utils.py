@@ -42,10 +42,12 @@ def rollout_heuristique(board, profondeur_max=20):
         coups_joues += 1
 
     # Évaluation : nombre de cases vides (0)
-    # Plus il y a d'espace, plus le coup est jugé bon
+    # Plus il y a d' vide, plus le coup est jugé bon
     cases_vides = list(sim_board).count(0)
     return cases_vides * 100
 
+
+## --- OPTIONNEL ---
 def rollout_expert(board, profondeur_max=15):
     """
     Simulation avancée : simule X coups puis évalue la structure du plateau.
@@ -54,7 +56,7 @@ def rollout_expert(board, profondeur_max=15):
     sim_board = board
     coups_joues = 0
     
-    # 1. Phase de projection (Future proche)
+    #  Phase de projection (Future proche)
     while coups_joues < profondeur_max:
         valid_moves = Fast2048.get_valid_moves(sim_board)
         if not valid_moves:

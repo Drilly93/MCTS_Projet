@@ -1,0 +1,20 @@
+==================================================
+BENCHMARK 2048 - 31/03/2026 01:27:29
+==================================================
+
+--- CONFIGURATION ---
+Méthode utilisée : NMCS
+Type de Rollout  : heuristique_prof20
+Nombre de parties: 10
+Puissance (Iter) : 2
+Limite de coups  : 1000
+
+--- RÉSULTATS ---
+Score Moyen      : 6582.00
+Écart-type       : 519.37
+Meilleur Score   : 7040
+Tuile Max        : 512
+Temps Moyen/Partie: 33.67s
+Score/Temps      : 195.50
+
+==================================================

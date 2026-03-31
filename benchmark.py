@@ -5,9 +5,7 @@ from game_2048 import Fast2048
 from utils import rollout_brute, rollout_heuristique, rollout_expert
 import datetime
 
-# Importez ici vos différentes méthodes
-from monte_carlo_classique import flat_monte_carlo
-from UCT_MCTS import mcts_ucb_search
+
 #from nmcs_2048 import nmcs_search 
 
 def run_benchmark(ai_function, num_games=10, name="Méthode Inconnue", max_moves=500):
@@ -74,8 +72,7 @@ def save_results(args, stats):
     # Création d'un nom de fichier unique basé sur la date et l'heure
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = f"results_{timestamp}_{args.method}_{args.rollout}.txt"
-    filename = f"results/{filename}"
-
+    filename = f"results/{filename}"  # Sauvegarde dans un dossier "results" (à créer si nécessaire)
     with open(filename, "w", encoding="utf-8") as f:
         f.write("="*50 + "\n")
         f.write(f"BENCHMARK 2048 - {datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S')}\n")
@@ -98,7 +95,7 @@ def save_results(args, stats):
         f.write(f"Temps Moyen/Partie: {stats['avg_time']:.2f}s\n")
         f.write(f"Score/Temps      : {stats['moyenne']/stats['avg_time']:.2f}\n")
         f.write("\n" + "="*50 + "\n")
-    
+
     print(f"\n[INFO] Résultats enregistrés dans : {filename}")
 
 if __name__ == "__main__":
@@ -141,7 +138,7 @@ if __name__ == "__main__":
         method_name = f"Flat MC ({args.power} sim, rollout: {args.rollout})"
         
     elif args.method == "MCTS":
-        from UCT_MCTS import mcts_ucb_search
+        from UCB_MCTS import mcts_ucb_search
         ai_func = lambda board: mcts_ucb_search(board, iterations=args.power, rollout_method=rollout_func)
         method_name = f"MCTS UCB ({args.power} iter, rollout: {args.rollout})"
         

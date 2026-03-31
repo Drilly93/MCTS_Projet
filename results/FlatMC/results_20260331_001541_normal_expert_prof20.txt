@@ -1,0 +1,19 @@
+==================================================
+BENCHMARK 2048 - 31/03/2026 00:15:41
+==================================================
+
+--- CONFIGURATION ---
+Méthode utilisée : normal
+Type de Rollout  : expert_prof20
+Nombre de parties: 10
+Puissance (Iter) : 30
+Limite de coups  : 1000
+
+--- RÉSULTATS ---
+Score Moyen      : 12502.00
+Écart-type       : 3916.71
+Meilleur Score   : 16324
+Tuile Max        : 1024
+Temps Moyen/Partie: 41.30s
+Score/Temps      : 302.77
+==================================================

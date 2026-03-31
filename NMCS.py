@@ -7,11 +7,10 @@ from utils import rollout_brute, rollout_heuristique
 nmcs_cache = {} # Clé : (board_tuple, level) -> Valeur : (best_move, best_avg_score)
 
 def nmcs(board, level, simulations_per_move=10, rollout_method=rollout_brute):
-    # Transformation du board en tuple pour qu'il soit "hashable" (utilisable comme clé de cache)
     board_tuple = tuple(board)
     state_key = (board_tuple, level)
     
-    # 1. OPTIMISATION : CACHE (Mémorisation)
+    # OPTIMISATION : CACHE (Mémorisation)
     if state_key in nmcs_cache:
         return nmcs_cache[state_key]
 
@@ -25,8 +24,8 @@ def nmcs(board, level, simulations_per_move=10, rollout_method=rollout_brute):
     for move in valid_moves:
         total_score_branche = 0
         
-        # 2. OPTIMISATION : RÉDUCTION DES SIMULATIONS
-        # On fait moins de simulations en profondeur pour gagner un temps fou
+        # OPTIMISATION : RÉDUCTION DES SIMULATIONS
+        # On fait moins de simulations en profondeur pour gagner du temps
         current_sims = simulations_per_move if level > 1 else max(1, simulations_per_move // 2)
         
         for i in range(current_sims):
@@ -41,7 +40,7 @@ def nmcs(board, level, simulations_per_move=10, rollout_method=rollout_brute):
             
             total_score_branche += score
 
-            # 3. OPTIMISATION : ÉLAGAGE (Pruning)
+            # OPTIMISATION : ÉLAGAGE (Pruning)
             # Si après quelques sims le score est déjà catastrophique, on arrête cette branche
             if i > 1 and (total_score_branche / (i+1)) < (best_avg_score * 0.7):
                 break
@@ -62,17 +61,10 @@ def nmcs(board, level, simulations_per_move=10, rollout_method=rollout_brute):
     return best_move, best_avg_score
 
 if __name__ == "__main__":
-    # Nettoyage du cache au début
+
     nmcs_cache.clear()
     
     print("Démarrage de l'IA NMCS Optimisée (Level 2)...")
-    
-    # Heuristique courte pour le niveau 0
-    r_func = lambda b: rollout_heuristique(b, profondeur_max=15)
-    
-    # Note : simulations_per_move=3 est un bon compromis pour du Level 2 fluide
-    app = GUI2048(
-        ai_function=lambda board: nmcs(board, level=2, simulations_per_move=4, rollout_method=r_func)[0], 
-        delay_ms=0
-    )
+    r_func = lambda b: rollout_heuristique(b, profondeur_max=20)
+    app = GUI2048(ai_function=lambda board: nmcs(board, level=2, simulations_per_move=3, rollout_method=r_func)[0], delay_ms=0)
     app.mainloop()
