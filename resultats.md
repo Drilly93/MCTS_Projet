@@ -24,6 +24,46 @@ Tuile max atteinte    : 1024
 Temps moyen / partie  : 35.83s
 ========================================
 
+========================================
+RÉSULTATS FINAUX : Flat MC (30 sim, rollout: heuristique(prof20))
+========================================
+Nombre de parties     : 10
+Moyenne des scores    : 16248.40
+Variance des scores   : 2653553.44
+Écart-type            : 1628.97
+Meilleur score        : 20940
+Pire score            : 14504
+Tuile max atteinte    : 2048
+Temps moyen / partie  : 55.63s
+========================================
+
+========================================
+RÉSULTATS FINAUX : Flat MC (30 sim, rollout: heuristique(prof200))
+========================================
+Nombre de parties     : 10
+Moyenne des scores    : 1716.00
+Variance des scores   : 488918.40
+Écart-type            : 699.23
+Meilleur score        : 3260
+Pire score            : 664
+Tuile max atteinte    : 256
+Temps moyen / partie  : 28.52s
+========================================
+
+
+========================================
+RÉSULTATS FINAUX : Flat MC (30 sim, rollout: heuristique(prof500))
+========================================
+Nombre de parties     : 10
+Moyenne des scores    : 2616.40
+Variance des scores   : 802340.64
+Écart-type            : 895.73
+Meilleur score        : 4452
+Pire score            : 1436
+Tuile max atteinte    : 256
+Temps moyen / partie  : 41.43s
+========================================
+
 
 
 

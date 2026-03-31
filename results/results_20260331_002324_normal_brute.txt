@@ -1,0 +1,19 @@
+==================================================
+BENCHMARK 2048 - 31/03/2026 00:23:24
+==================================================
+
+--- CONFIGURATION ---
+Méthode utilisée : normal
+Type de Rollout  : brute
+Nombre de parties: 10
+Puissance (Iter) : 30
+Limite de coups  : 1000
+
+--- RÉSULTATS ---
+Score Moyen      : 14746.40
+Écart-type       : 4469.03
+Meilleur Score   : 20752
+Tuile Max        : 2048
+Temps Moyen/Partie: 92.56s
+
+==================================================

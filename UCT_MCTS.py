@@ -4,6 +4,8 @@ from game_2048 import Fast2048
 from interface_graphique import GUI2048
 import time
 import numpy as np
+from utils import rollout_brute, rollout_heuristique
+
 
 class MCTSNode:
     def __init__(self, board, parent=None, move=None):
@@ -31,24 +33,22 @@ class MCTSNode:
         """Sélectionne l'enfant avec la meilleure valeur UCB."""
         return max(self.children.values(), key=lambda node: node.ucb_value(exploration_constant))
 
-def mcts_ucb_search(root_board, iterations=100):
+def mcts_ucb_search(root_board, iterations=100, rollout_method=rollout_brute):
     root_node = MCTSNode(root_board)
 
     for _ in range(iterations):
         node = root_node
         
-        # 1. SÉLECTION (Selection)
-        # On descend dans l'arbre tant que les nœuds sont totalement explorés
+        # 1. SÉLECTION
         while node.is_fully_expanded() and node.children:
             node = node.get_best_child()
 
-        # 2. EXPANSION (Expansion)
-        # Si le nœud n'est pas terminal, on crée un nouvel enfant
+        # 2. EXPANSION
         if node.untried_moves:
             move = random.choice(node.untried_moves)
             node.untried_moves.remove(move)
             
-            # Simuler le coup + ajout d'une tuile pour le nouvel état
+            # On récupère le score ici (_), mais on ne s'en sert pas pour sim_score
             next_state, _ = Fast2048.get_next_state(node.board, move)
             if next_state:
                 next_state = Fast2048.add_random_tile(next_state)
@@ -56,27 +56,18 @@ def mcts_ucb_search(root_board, iterations=100):
                 node.children[move] = child_node
                 node = child_node
 
-        # 3. SIMULATION (Rollout)
-        # On joue au hasard depuis cet état jusqu'à la fin
-        rollout_board = node.board
-        sim_score = 0
-        while True:
-            valid_moves = Fast2048.get_valid_moves(rollout_board)
-            if not valid_moves:
-                break
-            move = random.choice(valid_moves)
-            rollout_board, gained = Fast2048.get_next_state(rollout_board, move)
-            rollout_board = Fast2048.add_random_tile(rollout_board)
-            sim_score += gained
+        # 3. SIMULATION
+        # On utilise la méthode passée par le benchmark (brute ou heuristique)
+        # La fonction rollout_method ne prend qu'un seul argument : le board
+        sim_score = rollout_method(node.board)
 
-        # 4. RÉTROPROPAGATION (Backpropagation)
-        # On remonte l'arbre pour mettre à jour les visites et scores
+        # 4. RÉTROPROPAGATION
         while node is not None:
             node.visits += 1
             node.score_sum += sim_score
             node = node.parent
 
-    # Choix final : le mouvement le plus visité depuis la racine
+    # Choix final : le mouvement le plus visité
     if not root_node.children:
         valid = Fast2048.get_valid_moves(root_board)
         return random.choice(valid) if valid else None
@@ -89,5 +80,6 @@ def mcts_ucb_search(root_board, iterations=100):
 
 if __name__ == "__main__":
     print("Démarrage de l'IA MCTS avec UCB...")
-    app = GUI2048(ai_function=lambda board: mcts_ucb_search(board, iterations=50), delay_ms=10)
+    r_func = lambda b: rollout_heuristique(b, profondeur_max=20)
+    app = GUI2048(ai_function=lambda board: mcts_ucb_search(board, iterations=50, rollout_method=r_func), delay_ms=10)
     app.mainloop()
