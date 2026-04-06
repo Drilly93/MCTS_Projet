@@ -1,0 +1,20 @@
+==================================================
+BENCHMARK 2048 - 05/04/2026 20:28:38
+==================================================
+
+--- CONFIGURATION ---
+Méthode utilisée : Expectimax_2
+Type de Rollout  : heuristique_prof20
+Nombre de parties: 3
+Puissance (Iter) : 100
+Limite de coups  : 200000
+
+--- RÉSULTATS ---
+Score Moyen      : 22797.33
+Écart-type       : 5087.41
+Meilleur Score   : 27612
+Tuile Max        : 2048
+Temps Moyen/Partie: 7.31s
+Score/Temps      : 3119.50
+
+==================================================

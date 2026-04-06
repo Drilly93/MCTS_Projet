@@ -101,21 +101,21 @@ def save_results(args, stats):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Benchmark d'IA pour 2048")
     
-    # Choix de l'algorithme
+    # Choix de l'algorithme (Ajout de NRPA et Expectimax)
     parser.add_argument("--method", type=str, required=True, 
-                        choices=["normal", "MCTS", "NMCS"],
-                        help="Algorithme : normal (Flat MC), MCTS, NMCS")
+                        choices=["normal", "MCTS", "NMCS", "NRPA", "Expectimax"],
+                        help="Algorithme : normal (Flat MC), MCTS, NMCS, NRPA, Expectimax")
     
     # Choix du type de rollout
     parser.add_argument("--rollout", type=str, default="heuristique",
                         choices=["brute", "heuristique","expert"],
-                        help="Type de simulation (brute ou heuristique)")
+                        help="Type de simulation (brute, heuristique ou expert)")
     
     parser.add_argument("--games", type=int, default=10, help="Nombre de parties")
     parser.add_argument("--power", type=int, default=100, help="Itérations ou simulations")
     parser.add_argument("--max_moves", type=int, default=1000, help="Limite de coups")
     parser.add_argument("--prof", type=int, default=20, help="Profondeur de la simulation")
-    parser.add_argument("--level", type=int, default=2, help="Niveau pour NMCS (si applicable)")
+    parser.add_argument("--level", type=int, default=2, help="Niveau (NMCS, NRPA) ou Profondeur (Expectimax)")
     args = parser.parse_args()
     
     
@@ -123,7 +123,6 @@ if __name__ == "__main__":
     if args.rollout == "brute":
         rollout_func = rollout_brute
     elif args.rollout == "heuristique":
-        # On peut fixer la profondeur ici ou ajouter un argument au parser si besoin
         rollout_func = lambda b: rollout_heuristique(b, profondeur_max=args.prof)
         args.rollout += f"_prof{args.prof}"
     else:  # expert
@@ -144,10 +143,23 @@ if __name__ == "__main__":
         
     elif args.method == "NMCS":
         from NMCS import nmcs
-        # Pour NMCS, le rollout est souvent intrinsèque au niveau, 
-        # mais on peut passer l'argument si votre fonction le supporte
-        ai_func = lambda board: nmcs(board, level=args.level, rollout_method=rollout_func,simulations_per_move=args.power)[0]
+        ai_func = lambda board: nmcs(board, level=args.level, rollout_method=rollout_func, simulations_per_move=args.power)[0]
         method_name = f"NMCS (Niveau {args.level}, {args.power} sim, rollout: {args.rollout})"
         args.method += f"_{args.level}"
+        
+    elif args.method == "NRPA":
+        from NRPA import nrpa_search
+        ai_func = lambda board: nrpa_search(board, level=args.level, iterations=args.power, profondeur_max=args.prof)
+        method_name = f"NRPA (Niveau {args.level}, {args.power} iter/lvl, prof: {args.prof})"
+        args.method += f"_{args.level}"
+        
+    elif args.method == "Expectimax":
+        from expectimax import expectimax_search
+        # Pour Expectimax, on utilise --level comme profondeur de l'arbre
+        ai_func = lambda board: expectimax_search(board, depth=args.level)
+        method_name = f"Expectimax (Profondeur: {args.level})"
+        args.method += f"_{args.level}"
+
+    # Lancement du benchmark
     results_stats = run_benchmark(ai_func, num_games=args.games, name=method_name, max_moves=args.max_moves)
     save_results(args, results_stats)

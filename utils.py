@@ -22,6 +22,8 @@ def rollout_brute(board):
         
         score_cumule += gained
 
+
+
 def rollout_heuristique(board, profondeur_max=20):
     """
     Simulation 'Heuristique' : s'arrête après X coups.
@@ -103,3 +105,27 @@ def rollout_expert(board, profondeur_max=15):
     score_final += monotony
     
     return score_final
+
+
+def evalutation_smart(board):
+    """Fonction d'évaluation heuristique très rapide, force à garder dans le coins en
+    à droite la tuile avec la plus grande valeure puis par tuile decroissante comme un serpent."""
+
+    WEIGHT_MATRIX = [
+        32768, 16384, 8192, 4096,
+        256,   512,   1024, 2048,
+        128,   64,    32,   16,
+        1,     2,     4,    8
+    ]
+
+    score = 0
+    empty_cells = 0
+    
+    for i in range(16):
+        val = board[i]
+        if val == 0:
+            empty_cells += 1
+        else:
+            score += val * WEIGHT_MATRIX[i]
+    
+    return score + (empty_cells * 100000)

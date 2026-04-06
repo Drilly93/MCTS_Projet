@@ -59,10 +59,10 @@ class GUI2048(tk.Tk):
             print(f"Game Over ! Score final : {self.game.score}")
             return
             
-        # L'IA reçoit une COPIE IMMUTABLE du plateau (le tuple)
+        # L'IA reçoit une copie du plateau 
         best_move = self.ai_function(self.game.board)
         
-        # On applique le coup au VRAI jeu
+        # On applique le coup au vrai jeu
         if self.game.play_move(best_move):
             self.update_ui()
             self.after(self.delay_ms, self.ai_loop)
@@ -77,9 +77,6 @@ class GUI2048(tk.Tk):
                 self.update_ui()
                 if self.game.is_game_over():
                     print(f"Game Over ! Score final : {self.game.score}")
-
-# --- Test du code ---
 if __name__ == "__main__":
-    # Pour tester que tout marche au clavier :
     app = GUI2048()
     app.mainloop()
