@@ -36,7 +36,7 @@ def flat_monte_carlo(board, simulations_per_move=40, rollout_method=rollout_brut
 
 if __name__ == "__main__":
     print("Démarrage de l'IA Monte Carlo...")
-    r_func = lambda b: rollout_heuristique(b, profondeur_max=20)
+    r_func = lambda b: rollout_heuristique(b, profondeur_max=50)
     app = GUI2048(ai_function=lambda board: flat_monte_carlo(board, rollout_method=r_func,simulations_per_move=30), delay_ms=0)
     
     app.mainloop()

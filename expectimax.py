@@ -76,6 +76,6 @@ if __name__ == "__main__":
     
     fonction_ia = lambda board: expectimax_search(board, depth=PROFONDEUR)
     
-    app = GUI2048(ai_function=fonction_ia, delay_ms=0)
+    app = GUI2048(ai_function=fonction_ia, delay_ms=1)
     app.after(100, app.ai_loop)
     app.mainloop()
