@@ -4,7 +4,7 @@ BENCHMARK 2048 - 05/04/2026 20:08:02
 
 --- CONFIGURATION ---
 Méthode utilisée : Expectimax_3
-Type de Rollout  : heuristique_prof20
+Type de Rollout  : evalutation_smart
 Nombre de parties: 5
 Puissance (Iter) : 100
 Limite de coups  : 200000
