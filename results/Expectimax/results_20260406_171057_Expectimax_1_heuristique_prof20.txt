@@ -1,20 +1,20 @@
 ==================================================
-BENCHMARK 2048 - 05/04/2026 20:08:02
+BENCHMARK 2048 - 06/04/2026 17:10:57
 ==================================================
 
 --- CONFIGURATION ---
-Méthode utilisée : Expectimax_3
+Méthode utilisée : Expectimax_1
 Type de Rollout  : evalutation_smart
 Nombre de parties: 5
-Puiassance (Iter) : 100
+Puissance (Iter) : 100
 Limite de coups  : 200000
 
 --- RÉSULTATS ---
-Score Moyen      : 34244.00
-Écart-type       : 14259.69
-Meilleur Score   : 51940
-Tuile Max        : 4096
-Temps Moyen/Partie: 452.72s
-Score/Temps      : 75.64
+Score Moyen      : 2555.20
+Écart-type       : 1431.74
+Meilleur Score   : 5320
+Tuile Max        : 256
+Temps Moyen/Partie: 0.09s
+Score/Temps      : 27080.40
 
 ==================================================

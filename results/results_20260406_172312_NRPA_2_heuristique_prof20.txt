@@ -1,0 +1,20 @@
+==================================================
+BENCHMARK 2048 - 06/04/2026 17:23:12
+==================================================
+
+--- CONFIGURATION ---
+Méthode utilisée : NRPA_2
+Type de Rollout  : heuristique_prof20
+Nombre de parties: 5
+Puissance (Iter) : 15
+Limite de coups  : 150000
+
+--- RÉSULTATS ---
+Score Moyen      : 4152.80
+Écart-type       : 1798.33
+Meilleur Score   : 6016
+Tuile Max        : 512
+Temps Moyen/Partie: 281.47s
+Score/Temps      : 14.75
+
+==================================================
