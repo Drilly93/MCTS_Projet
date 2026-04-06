@@ -49,7 +49,7 @@ def rollout_nrpa(board, policy, profondeur_max=20):
         sim_board = Fast2048.add_random_tile(sim_board)
         coups_joues += 1
         
-    score_final = rollout_brute(sim_board)
+    score_final = rollout_heuristique(sim_board, profondeur_max=0)
     return score_final, sequence
 
 def adapt(policy, sequence, alpha=1.0):
